@@ -106,12 +106,12 @@ Displays the correlation heatmap of all the columns.
 ![dv 5](https://github.com/user-attachments/assets/549a734b-8237-456f-874b-3cc3f3d5ff26)
 
 #### 6) Pie chart
-Displays the comparitive pie chart of all the columns.
+Displays the comparative pie chart of all the columns.
 
 ![dv 6](https://github.com/user-attachments/assets/ecc32a4a-e575-4beb-8526-8abcbdfb8c90)
 
 #### 7) Donut chart
-Displays the comparitive donut chart of all the columns.
+Displays the comparative donut chart of all the columns.
 
 ![dv 7](https://github.com/user-attachments/assets/744cbfd5-3176-496c-a7c2-722fd86cb0bc)
 
