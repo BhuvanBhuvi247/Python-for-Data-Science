@@ -22,7 +22,7 @@ Shows the comparative pie chart of paid and free apps based on count of installs
 
 **Insights -** Most of the apps are free. This shows people prefer to install free apps over paid apps.
 
-### 3) App type distribution
+### 3) Rating distribution
 ![newplot (2)](https://github.com/user-attachments/assets/0d3b995a-62d3-4651-8bd6-ab0d5648df85)
 
 Shows the histogram of rating distribution.
