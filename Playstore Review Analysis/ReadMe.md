@@ -78,3 +78,10 @@ Scatter plot shows the correlation between update frequency and rating. Shows th
 Boxplot shows the comparision of average ratings for paid apps and free apps.
 
 **Insights -** We can see boxplot of paid apps shows a slightly higher median than free apps. Users using paid apps have given better reviews, so we can say paid apps perform better and user are satisfied with them. Also we can see users using paid apps might expect better performance.
+
+-----
+
+## How to use.
+- Download the Folder named 'Play Review Analysis'.
+- Unzip the file.
+- Open the file named 'Google_playstore_analytics.ipynb'.
