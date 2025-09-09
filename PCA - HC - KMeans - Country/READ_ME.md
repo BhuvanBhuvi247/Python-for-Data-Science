@@ -1,4 +1,4 @@
-# PCA - HC - KMeans - Country data
+<img width="166" height="197" alt="image" src="https://github.com/user-attachments/assets/980d99be-1120-4ce4-9ce4-498d2750ecd3" /># PCA - HC - KMeans - Country data
 
 ## Overview
 
@@ -33,7 +33,18 @@ df.head()
 
 *Interpretation :*
 
-- Data shows the country names and indicators of countries growth.
+- Data contains the country names and indicators of countries growth.
 
+```python
+#checking datatypes
+df.dtypes
+```
+<img width="166" height="197" alt="image" src="https://github.com/user-attachments/assets/68a818ec-5434-4949-bc04-c3c6e30abffa" />
 
-vasv
+*Interpretation :*
+
+- All the coulumns are in required data type. With 9 numeric columns and one nominal column.
+
+ ```python
+#checking null values
+df.isnull().sum()
