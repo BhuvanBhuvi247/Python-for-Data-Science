@@ -15,7 +15,7 @@ The Country dataset contains details of indicators of a countries growth. As the
 
 ## Procedure
 
-**Step - 1 : Understanding and Cleaning Data**
+**Step - 1 : Data Exploration and Cleaning Data**
 
 ```python
 #importing libraries
@@ -53,7 +53,7 @@ df.isnull().sum()
 
 *Interpretation :*
 
-- A
+- The dataset has no null values, so no changes to be made.
 
  ```python
 #checking duplicates
@@ -63,7 +63,7 @@ print ("Number of duplicate records : ",df.duplicated().sum())
 
 *Interpretation :*
 
-- S
+- The dataset has no duplicated records, so no changes to be made.
 
 ```python
 #create duplicate df
@@ -76,7 +76,7 @@ dfn.describe()
 
 *Interpretation :*
 
-- D
+- The basic description of the data shows that data is not scaled, so scaling has to be performed for further analysis.
 
 ```python
 dfa.boxplot()
@@ -86,6 +86,8 @@ plt.show()
 <img width="868" height="650" alt="image" src="https://github.com/user-attachments/assets/e2bafe75-0920-4ece-a823-7936ec77ed26" />
 
 *Interpretation :*
+
+- The boxplot shows that there are too many outliers in income and gdpp columns. They have to be removed.
 
 ```python
 #removing outliers
@@ -109,7 +111,7 @@ plt.show()
 
 *Interpretation :*
 
-- A
+- The outliers have been removed and data is cleaned.
 
 ```python
 #checking correlation using heatmap
@@ -122,8 +124,19 @@ plt.show()
 
 *Interpretation :*
 
-- F
-
+- The Correlation Heatmap shows.
+- Negative correlation in the following columns
+- 1) child_mort
+  2) income 
+  3) life_exp
+  4) gdpp
+- Positive correlation in the following columns
+- 1) child_mort
+  2) exports
+  3) income
+  4) life_exp
+- These are the columns with high correlation and affect the data to larger extent.
+  
 **Step - 2 : Scaling Data**
 
 ```python
@@ -133,7 +146,7 @@ scaled_df = pd.DataFrame(scaler.fit_transform(dfn),columns=dfn.columns)
 ```
 *Interpretation :*
 
-- D
+- The data was distributed in different scales, soo all the data is is scaled to a uniform scale for better analysis.
 
 **Step - 3 : Principal Component Analysis**
 
@@ -154,6 +167,12 @@ scaled_df.head()
 ```
 <img width="1000" height="271" alt="image" src="https://github.com/user-attachments/assets/eff4bc36-bf02-4722-bf88-20a4b433f4b7" />
 
+*Interpretation :*
+
+- The components have been generated and checking for principal components.
+- Components have been fit to the dataframe.
+- Explained variance of each components has been calculated to check the components with high variance.
+
 ```python
 #Visualise Explained Variance by individual components
 plt.figure(figsize=(5,10))
@@ -167,7 +186,8 @@ plt.show()
 
 *Interpretation :*
 
-- G
+- The curve shows the cumulative sum of the explained variance of components
+- Keeping the standard error of 5%, 5 components lie in the confidence range of 95%. So 5 Components have to be finalized.
 
 ```python
 #Extracting Principle Components 
@@ -180,7 +200,7 @@ data_pca.T
 
 *Interpretation :*
 
-- D
+- The 5 Principal Components have been extracted and displayed 
 
 **Step - 4 : Hierarchical Clustering**
 
@@ -291,5 +311,5 @@ print("\nCountries per Cluster:\n", cluster_counts)
 
 *Interpretation :*
 
-- J
+- 
   
