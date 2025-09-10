@@ -1,4 +1,4 @@
-<img width="166" height="197" alt="image" src="https://github.com/user-attachments/assets/980d99be-1120-4ce4-9ce4-498d2750ecd3" /># PCA - HC - KMeans - Country data
+# PCA - HC - KMeans - Country data
 
 ## Overview
 
@@ -48,3 +48,248 @@ df.dtypes
  ```python
 #checking null values
 df.isnull().sum()
+```
+<img width="196" height="296" alt="image" src="https://github.com/user-attachments/assets/e9841385-232f-4b60-b2b8-82a587532861" />
+
+*Interpretation :*
+
+- A
+
+ ```python
+#checking duplicates
+print ("Number of duplicate records : ",df.duplicated().sum())
+```
+<img width="374" height="40" alt="image" src="https://github.com/user-attachments/assets/a8c3ffb7-fa48-467e-8ed4-1619f556417b" />
+
+*Interpretation :*
+
+- S
+
+```python
+#create duplicate df
+dfa = df.copy()
+#Create df with only numbers
+dfn = df.select_dtypes(include='number')
+dfn.describe()
+```
+<img width="1207" height="416" alt="image" src="https://github.com/user-attachments/assets/793cf6b6-1a68-4ff2-90af-00bbc60c5111" />
+
+*Interpretation :*
+
+- D
+
+```python
+dfa.boxplot()
+plt.title("Boxplot before Outlier Treatment")
+plt.show()
+```
+<img width="868" height="650" alt="image" src="https://github.com/user-attachments/assets/e2bafe75-0920-4ece-a823-7936ec77ed26" />
+
+*Interpretation :*
+
+```python
+#removing outliers
+def remove_outlier(col):
+    Q1, Q3 = col.quantile([0.25, 0.75])
+    IQR = Q3 - Q1
+    lower_range = Q1 - (1.5 * IQR)
+    upper_range = Q3 + (1.5 * IQR)
+    return lower_range, upper_range
+
+for i in dfn:
+    LL, UL = remove_outlier(dfn[i])
+    dfn[i] = np.where(dfn[i] > UL, UL, dfn[i])
+    dfn[i] = np.where(dfn[i] < LL, LL, dfn[i])
+
+dfn.boxplot(figsize=(6,4))
+plt.title("Boxplot after Outlier Treatment")
+plt.show()
+```
+<img width="810" height="559" alt="image" src="https://github.com/user-attachments/assets/454f9a1c-b96e-4fd6-823e-1a0ff6fdd16f" />
+
+*Interpretation :*
+
+- A
+
+```python
+#checking correlation using heatmap
+plt.figure(figsize=(5,5))
+sns.heatmap(dfn.corr(), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
+```
+<img width="759" height="767" alt="image" src="https://github.com/user-attachments/assets/aecfb1ce-f2ce-4036-9559-e24bf292069a" />
+
+*Interpretation :*
+
+- F
+
+**Step - 2 : Scaling Data**
+
+```python
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaled_df = pd.DataFrame(scaler.fit_transform(dfn),columns=dfn.columns)
+```
+*Interpretation :*
+
+- D
+
+**Step - 3 : Principal Component Analysis**
+
+```python
+from sklearn.decomposition import PCA
+
+#Defining number of PCs to Generate
+n=scaled_df.shape[1]
+
+#Finding PCs for data
+pca = PCA(n_components=n, random_state=1)
+data_pca1 = pd.DataFrame(pca.fit_transform(scaled_df))
+
+#The percentage of variance explained by each PC
+exp_var = pca.explained_variance_ratio_
+
+scaled_df.head()
+```
+<img width="1000" height="271" alt="image" src="https://github.com/user-attachments/assets/eff4bc36-bf02-4722-bf88-20a4b433f4b7" />
+
+```python
+#Visualise Explained Variance by individual components
+plt.figure(figsize=(5,10))
+plt.plot(range(1,len(exp_var)+1),exp_var.cumsum(),marker='o',linestyle='--')
+plt.title("Explained Variance by Components")
+plt.xlabel("Number of Components")
+plt.ylabel("Cumulative Explained Variance")
+plt.show()
+```
+<img width="458" height="853" alt="download" src="https://github.com/user-attachments/assets/47ffc424-159e-4d45-b6c9-1c77303e5e06" />
+
+*Interpretation :*
+
+- G
+
+```python
+#Extracting Principle Components 
+pc_comps = ['PC1','PC2','PC3','PC4','PC5']
+data_pca = pd.DataFrame(np.round(pca.components_[:5,],2),index=pc_comps,columns=scaled_df.columns)
+data_pca.T
+```
+
+<img width="439" height="451" alt="image" src="https://github.com/user-attachments/assets/3969c364-a25c-4aee-a631-bbde1435a3c2" />
+
+*Interpretation :*
+
+- D
+
+**Step - 4 : Hierarchical Clustering**
+
+```python
+from scipy.cluster.hierarchy import dendrogram, linkage
+
+wardlink = linkage(scaled_df, method = 'ward')
+plt.figure(figsize=(14, 6))
+dend = dendrogram(wardlink)
+
+plt.title("Hierarchical Clustering Dendrogram")
+plt.show()
+```
+<img width="1132" height="525" alt="download" src="https://github.com/user-attachments/assets/ba427504-30cb-41ba-85df-eeb1cc59a94a" />
+
+*Interpretation :*
+
+- L
+
+```python
+from scipy.cluster.hierarchy import fcluster
+
+cluster = fcluster(wardlink,2,criterion='maxclust')
+
+dfa['cluster_no'] = cluster
+dfa.head()
+```
+<img width="1193" height="266" alt="image" src="https://github.com/user-attachments/assets/81975b1d-6b52-41d5-bf83-9fe475424d35" />
+
+*Interpretation :*
+
+- K
+
+**Step - 5 : KMeans Clustering**
+
+```python
+from sklearn.cluster import KMeans
+
+#checking how many clusters to be set
+wss=[]
+for i in range(1, 11):
+    KM = KMeans(n_clusters=i)  
+    KM.fit(scaled_df)
+    wss.append(KM.inertia_)
+
+plt.plot(range(1, 11), wss, marker='o')
+plt.xlabel('Number of Clusters')
+plt.ylabel('WSS')
+plt.title('Elbow Method')
+plt.show()
+```
+<img width="580" height="453" alt="download" src="https://github.com/user-attachments/assets/0bb67cf7-e424-4a91-ad87-97b2c0dde6a9" />
+
+*Interpretation :*
+
+- K
+
+```python
+#assigning clusters
+k_means = KMeans(n_clusters=2,random_state=12,n_init=10)
+k_means.fit(scaled_df)
+labels = k_means.labels_
+
+dfa["clus_kmeans"] = labels
+dfa.head()
+```
+<img width="1321" height="277" alt="image" src="https://github.com/user-attachments/assets/7a7c764c-1d2e-44f7-b6eb-b1b5e0049b09" />
+
+*Interpretation :*
+
+- L
+
+```python
+from sklearn.metrics import silhouette_samples,silhouette_score, calinski_harabasz_score, davies_bouldin_score
+
+print ("Silhouette max value",silhouette_samples(scaled_df,labels).max())
+```
+<img width="446" height="28" alt="image" src="https://github.com/user-attachments/assets/237f16a8-2810-49ac-a687-c657e95cac78" />
+```python
+print ("Silhouette min value",silhouette_samples(scaled_df,labels).min())
+```
+<img width="454" height="33" alt="image" src="https://github.com/user-attachments/assets/34117d41-bca7-459e-a184-2d80e6f35236" />
+
+*Interpretation :*
+
+- L
+
+**Step - 6 : Comparative Study**
+
+```python
+print("Silhouette Score of Hierarchical Clustering = ",silhouette_score(scaled_df,cluster))
+print("Calinski-Harabasz Index:", calinski_harabasz_score(scaled_df,cluster))
+print("Davies-Bouldin Index:", davies_bouldin_score(scaled_df,cluster))
+
+cluster_counts = dfa.groupby("cluster_no")['country'].count()
+print("\nCountries per Cluster:\n", cluster_counts)
+```
+<img width="739" height="248" alt="image" src="https://github.com/user-attachments/assets/dd8d7226-b9ca-400c-b6a1-a11967081477" />
+```python
+print("Silhouette Score of KMeans Clustering = ",silhouette_score(scaled_df,labels))
+print("Calinski-Harabasz Index:", calinski_harabasz_score(scaled_df,labels))
+print("Davies-Bouldin Index:", davies_bouldin_score(scaled_df,labels))
+
+cluster_counts = dfa.groupby("clus_kmeans")['country'].count()
+print("\nCountries per Cluster:\n", cluster_counts)
+```
+<img width="660" height="242" alt="image" src="https://github.com/user-attachments/assets/c64da54c-d53b-40dc-90a6-a2bc06893263" />
+
+*Interpretation :*
+
+- J
+  
