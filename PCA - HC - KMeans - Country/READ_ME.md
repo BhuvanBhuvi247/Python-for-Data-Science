@@ -310,7 +310,9 @@ print("Davies-Bouldin Index:", davies_bouldin_score(scaled_df,cluster))
 cluster_counts = dfa.groupby("cluster_no")['country'].count()
 print("\nCountries per Cluster:\n", cluster_counts)
 ```
+
 <img width="739" height="248" alt="image" src="https://github.com/user-attachments/assets/dd8d7226-b9ca-400c-b6a1-a11967081477" />
+
 ```python
 print("Silhouette Score of KMeans Clustering = ",silhouette_score(scaled_df,labels))
 print("Calinski-Harabasz Index:", calinski_harabasz_score(scaled_df,labels))
@@ -319,9 +321,21 @@ print("Davies-Bouldin Index:", davies_bouldin_score(scaled_df,labels))
 cluster_counts = dfa.groupby("clus_kmeans")['country'].count()
 print("\nCountries per Cluster:\n", cluster_counts)
 ```
+
 <img width="660" height="242" alt="image" src="https://github.com/user-attachments/assets/c64da54c-d53b-40dc-90a6-a2bc06893263" />
 
 *Interpretation :*
 
-- 
-  
+| Index | Hierarchical Cluster | KMeans Cluster | Results |
+|-------|----------------------|----------------|---------|
+| Silhouette Score | 0.2458 | 0.2898 | KMeans |
+| Calinski-Harabasz Index | 68.8675 | 84.6973 | KMeans |
+| Davies-Bouldin Index | 1.4591 | 1.3079 | KMeans |
+| C1 Count | 71 | 69 | |
+| C2 Count | 96 | 98 | |
+
+- Silhouette Score of KMeans Cluster is closer to 1 compared to Hierarchical Cluster. Hence, KMeans Cluster has better separation.
+- Calinski-Harabasz Index of KMeans Cluster is higher compared to Hierarchical Cluster. Hence, KMeans Clusters are better defined.
+- Davies-Bouldin Index of KMeans Cluster is lower compared to Hierarchical Cluster. Hence, KMeans Cluster has better clustering.
+
+- **Overall KMeans Clustering is more suitable for this dataset**
