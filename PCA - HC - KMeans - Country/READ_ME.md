@@ -224,7 +224,6 @@ plt.show()
 *Interpretation :*
 
 - Hierarchal Clustering is performed using the wardlinkage and dendogram. The results of the dendogram shows that creating 2 clusters would be optimum.
-- - Cluster 1 has highly correlated data whereas cluster 2 has less correlated data.
 
 ```python
 from scipy.cluster.hierarchy import fcluster
@@ -238,7 +237,8 @@ dfa.head()
 
 *Interpretation :*
 
-- 2 Clusters are created and assigned accordingly. 
+- 2 Clusters are created and assigned accordingly.
+- Cluster 1 has highly correlated data whereas cluster 2 has less correlated data.
 
 **Step - 5 : KMeans Clustering**
 
