@@ -297,6 +297,11 @@ print ("Silhouette min value",silhouette_samples(scaled_df,labels).min())
 
 **Step - 6 : Comparative Study**
 
+The comparative study is conducted in order to select the best method or the most suitable method of clustering for the dataset. This can be assesed based in the indexes like Silhouette Score, Calinski-Harabasz Index and Davies-Bouldin Index. The following are the rules for assessing.
+- Silhouette Score (closer to 1 = better separation).
+- Calinski-Harabasz Index (higher = better defined clusters).
+- Davies-Bouldin Index (lower = better clustering).
+
 ```python
 print("Silhouette Score of Hierarchical Clustering = ",silhouette_score(scaled_df,cluster))
 print("Calinski-Harabasz Index:", calinski_harabasz_score(scaled_df,cluster))
