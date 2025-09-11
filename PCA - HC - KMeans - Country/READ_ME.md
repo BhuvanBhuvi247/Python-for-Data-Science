@@ -339,3 +339,18 @@ print("\nCountries per Cluster:\n", cluster_counts)
 - Davies-Bouldin Index of KMeans Cluster is lower compared to Hierarchical Cluster. Hence, KMeans Cluster has better clustering.
 
 - **Overall KMeans Clustering is more suitable for this dataset**
+
+---
+
+## How to use
+
+**•	Download the Folder named ‘PCA - HC - KMeans - Country’.**
+
+**•	Unzip the file.**
+
+**•	Open the file named ‘PCA - HC Vs KMeans - Cluster.ipynb’.**
+
+**OR**
+
+**•	Open the file named ‘PCA - HC Vs KMeans - Cluster.html’.**
+
