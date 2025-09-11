@@ -200,7 +200,12 @@ data_pca.T
 
 *Interpretation :*
 
-- The 5 Principal Components have been extracted and displayed 
+- The 5 Principal Components have been extracted and displayed. Following are the components:-
+- 1) **PC1 - Life_Span -** It consists of the columns child_mort and life expectancy, which shows the life span of the people.
+  2) **PC2 - IMPEX -** It consists of the columns import and export showing the impact of imports and exports on growth of the country.  
+  3) **PC3 - Health -** It consists of the column health, showing how health of people is affecting the country's growth.
+  4) **PC4 - Financial_Indicators -** It consists of the columns income, total_fer and gdpp. So this component describes how financial indicators affect the growth of the country.
+  5) **PC5 - Inflation** This component has the column inflation and shows how inflation rate affects the country's growth.
 
 **Step - 4 : Hierarchical Clustering**
 
