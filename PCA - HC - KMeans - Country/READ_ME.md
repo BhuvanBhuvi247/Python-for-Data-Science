@@ -284,10 +284,13 @@ from sklearn.metrics import silhouette_samples,silhouette_score, calinski_haraba
 
 print ("Silhouette max value",silhouette_samples(scaled_df,labels).max())
 ```
+
 <img width="446" height="28" alt="image" src="https://github.com/user-attachments/assets/237f16a8-2810-49ac-a687-c657e95cac78" />
+
 ```python
 print ("Silhouette min value",silhouette_samples(scaled_df,labels).min())
 ```
+
 <img width="454" height="33" alt="image" src="https://github.com/user-attachments/assets/34117d41-bca7-459e-a184-2d80e6f35236" />
 
 *Interpretation :*
