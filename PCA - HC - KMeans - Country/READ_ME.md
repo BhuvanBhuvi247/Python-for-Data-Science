@@ -223,7 +223,8 @@ plt.show()
 
 *Interpretation :*
 
-- L
+- Hierarchal Clustering is performed using the wardlinkage and dendogram. The results of the dendogram shows that creating 2 clusters would be optimum.
+- - Cluster 1 has highly correlated data whereas cluster 2 has less correlated data.
 
 ```python
 from scipy.cluster.hierarchy import fcluster
@@ -237,7 +238,7 @@ dfa.head()
 
 *Interpretation :*
 
-- K
+- 2 Clusters are created and assigned accordingly. 
 
 **Step - 5 : KMeans Clustering**
 
@@ -261,7 +262,7 @@ plt.show()
 
 *Interpretation :*
 
-- K
+- KMeans Clustering is being performed using the elbow method. The line graph shows that elbow cuts at just 2 clusters. Hence, assigning 2 clusters would be optimum.
 
 ```python
 #assigning clusters
@@ -276,7 +277,7 @@ dfa.head()
 
 *Interpretation :*
 
-- L
+- Clusters are created and assigned accordingly.
 
 ```python
 from sklearn.metrics import silhouette_samples,silhouette_score, calinski_harabasz_score, davies_bouldin_score
@@ -291,7 +292,8 @@ print ("Silhouette min value",silhouette_samples(scaled_df,labels).min())
 
 *Interpretation :*
 
-- L
+- The silhouette score has to be in the range 0 - 1 for good clustering. The results of this clustering ranges between 0.0068 and 0.4868 which show the clustering is good.
+- Cluster 1 has highly correlated data whereas cluster 0 has less correlated data.
 
 **Step - 6 : Comparative Study**
 
